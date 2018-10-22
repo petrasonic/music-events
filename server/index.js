@@ -8,7 +8,10 @@ app.listen(config.HOST_PORT);
 
 // get the music events
 router.get('/get-events', (req, res) => {
-  const events = db.getEvents;
+  const events = db.getEvents.map((event, index) =>{
+    event.id = index;
+    return event;
+  });
   res.json(events);
 });
 

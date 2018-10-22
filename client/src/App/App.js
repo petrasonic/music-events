@@ -8,32 +8,30 @@ class App extends Component {
     musicEvents: [],
   }
 
-  getData = () => {
+  constructor(props) {
+    super(props);
+
+    this.getMusicEvents();
+  }
+
+  getMusicEvents = () => {
     axios.get('/api/get-events').then((res) => {
       console.log(res);
       this.setState({musicEvents: res.data})
     });
   }
+
   render() {
     const { musicEvents } = this.state;
-    console.log(musicEvents);
+
     return (
       <div className="App">
+        <ul>
         {musicEvents.map(musicEvent => (
-          <div className="event">{musicEvent['ON SALE']}</div>
+          <li className="event" key={musicEvent.id}>{musicEvent['ON SALE']}</li>
         ))}
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <button onClick={this.getData}>Get Data</button>
-        </header>
+        </ul>
+        <button onClick={this.getMusicEvents}>Refresh</button>
       </div>
     );
   }
