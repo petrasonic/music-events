@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
+  state = {
+    music: [],
+  }
+
+  getData = () => {
+    axios.get('/api/get-events').then((res) => {
+      console.log(res);
+      this.setState({music: JSON.stringify(res.data)})
+    });
+  }
   render() {
     return (
       <div className="App">
@@ -19,6 +30,8 @@ class App extends Component {
           >
             Learn React
           </a>
+        <button onClick={this.getData}>Get Data</button>
+        <pre>{this.state.music}</pre>
         </header>
       </div>
     );

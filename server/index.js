@@ -1,13 +1,15 @@
 const config = require('./config');
+const db = require('./db');
 const express = require('express');
 const app = express();
 const router = express.Router();
 
 app.listen(config.HOST_PORT);
 
-// Sample endpoint
-router.get('/example', (req, res) => {
-  res.json({ yo: 'lo' });
+// get the music events
+router.get('/get-events', (req, res) => {
+  const events = db.getEvents;
+  res.json(events);
 });
 
 // Namespace the API
