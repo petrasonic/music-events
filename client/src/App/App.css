@@ -5,6 +5,10 @@
 .main-title{
   text-align: center;
 }
+div.search-bar{
+  width: 100%;
+  margin: 0 5em 3em 5em;
+}
 
 /* Event List Item */
 div.event-wrapper{

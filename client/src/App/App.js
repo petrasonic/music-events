@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+  TextField
+} from '@material-ui/core';
 import moment from 'moment';
 import axios from 'axios';
 import './App.css';
@@ -7,6 +11,7 @@ import './App.css';
 class App extends Component {
   state = {
     musicEvents: [],
+    searchQuery: ''
   }
 
   constructor(props) {
@@ -22,8 +27,15 @@ class App extends Component {
     });
   }
 
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  }
+
   render() {
-    const { musicEvents } = this.state;
+    let { musicEvents, searchQuery } = this.state;
+    musicEvents = musicEvents.filter(event => event['ON SALE'].toLowerCase().includes(searchQuery.toLowerCase()));
 
     return (
       <div className="App">
@@ -33,6 +45,14 @@ class App extends Component {
               Upcoming Events
             </Typography>
           </Grid>
+          <TextField
+            id="search"
+            label="Search"
+            className="search-bar"
+            value={this.state.searchQuery}
+            onChange={this.handleChange('searchQuery')}
+            margin="normal"
+          />
           {musicEvents.map(musicEvent => (
             <Grid container item xs={12} spacing={24} key={musicEvent.id} className="event-wrapper">
               <Grid item md={2} xs={3} className="date">
