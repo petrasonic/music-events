@@ -5,9 +5,9 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import moment from 'moment';
 import axios from 'axios';
 import './App.css';
+import EventListItem from '../EventListItem';
 import NextIcon from '../NextIcon';
 import PreviousIcon from '../PreviousIcon';
 
@@ -57,25 +57,13 @@ class App extends Component {
             margin="normal"
           />
           {musicEvents.map(musicEvent => (
-            <Grid container item xs={12} spacing={24} key={musicEvent.id} className="event-wrapper">
-              <Grid item md={2} xs={3} className="date">
-                <div className="month">{moment(musicEvent.DATE).format('MMM')}</div>
-                <div className="day">{moment(musicEvent.DATE).format('DD')}</div>
-              </Grid>
-              <Grid item md={10} xs={9} key={musicEvent.id}>
-                <Typography variant="h2" gutterBottom>
-                  {musicEvent.ARTIST}
-                </Typography>
-                <p className="time-details">{moment(`${musicEvent.DATE} ${musicEvent.TIME}`).format('ddd, MMM DD, h:mm a')}</p>
-                <p className="venue">{`Location: ${musicEvent.VENUE}`}</p>
-                <p className="price">{`${musicEvent.PRICE}`}</p>
-              </Grid>
-            </Grid>
+            <EventListItem musicEvent={musicEvent} />
           ))}
         </Grid>
-        <Button>Previous <PreviousIcon /></Button>
-        <Button>Next <NextIcon /></Button>
-        <button onClick={this.getMusicEvents}>Refresh</button>
+        <Grid item xs={12} className="pagination-button-container">
+          <Button>Previous <PreviousIcon /></Button>
+          <Button>Next <NextIcon /></Button>
+        </Grid>
       </div>
     );
   }

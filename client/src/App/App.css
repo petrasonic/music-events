@@ -10,22 +10,6 @@ div.search-bar{
   margin: 0 5em 3em 5em;
 }
 
-/* Event List Item */
-div.event-wrapper{
-  margin-bottom: 1em;
-}
-.date{
-  text-align: center;
-}
-.month{
-  color: #f05537;
-  font-size: 1.8em;
-}
-.day{
-  color: #666;
-  font-size: 2em;
-}
-.time-details, .venue, .price{
-  color: #666;
-  margin: 0.4em 0;
+.pagination-button-container{
+  text-align: right;
 }
