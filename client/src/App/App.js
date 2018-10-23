@@ -25,7 +25,6 @@ class App extends Component {
 
   getMusicEvents = () => {
     axios.get('/api/get-events').then((res) => {
-      console.log(res);
       this.setState({musicEvents: res.data})
     });
   }
@@ -57,7 +56,7 @@ class App extends Component {
             margin="normal"
           />
           {musicEvents.map(musicEvent => (
-            <EventListItem musicEvent={musicEvent} />
+            <EventListItem musicEvent={musicEvent} key={musicEvent.id} />
           ))}
         </Grid>
         <Grid item xs={12} className="pagination-button-container">

@@ -13,3 +13,11 @@ div.search-bar{
 .pagination-button-container{
   text-align: right;
 }
+
+a{
+  color: #f05537;
+  text-decoration: none;
+}
+a:hover{
+  color: #bb4029;
+}

@@ -1,18 +1,22 @@
 div.event-wrapper{
-    margin-bottom: 1em;
-  }
-  .date{
-    text-align: center;
-  }
-  .month{
-    color: #f05537;
-    font-size: 1.8em;
-  }
-  .day{
-    color: #666;
-    font-size: 2em;
-  }
-  .time-details, .venue, .price{
-    color: #666;
-    margin: 0.4em 0;
-  }
+  margin-bottom: 1em;
+}
+.date{
+  text-align: center;
+}
+.month{
+  color: #f05537;
+  font-size: 1.8em;
+}
+.day{
+  color: #666;
+  font-size: 2em;
+}
+.artist-img{
+  max-width: 100%;
+  border-radius: 50%;
+}
+.time-details, .venue, .price{
+  color: #666;
+  margin: 0.4em 0;
+}
