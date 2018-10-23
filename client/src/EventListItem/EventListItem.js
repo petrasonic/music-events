@@ -59,7 +59,7 @@ class EventListItem extends Component {
             <p className="time-details">{moment(`${musicEvent.DATE} ${musicEvent.TIME}`).format('ddd, MMM DD, h:mm a')}</p>
             <p className="venue">{`Location: ${musicEvent.VENUE}`}</p>
             <p className="price">{`${musicEvent.PRICE}`}</p>
-            {artistURL && <a href={artistURL} target="_blank" rel="noopener noreferrer">Listen on SoundCloud</a>}
+            {artistURL && <a href={artistURL} target="_blank" rel="noopener noreferrer">Listen on SoundCloud <span role="img" aria-label="headphones">🎧</span></a>}
           </Grid>
 
         </Grid>
