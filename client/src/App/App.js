@@ -14,12 +14,14 @@ import PreviousIcon from '../PreviousIcon';
 class App extends Component {
   state = {
     musicEvents: [],
-    searchQuery: ''
+    searchQuery: '',
+    paginationIndex: 0,
   }
 
   constructor(props) {
     super(props);
 
+    this.pageSize = 6;
     this.getMusicEvents();
   }
 
@@ -29,18 +31,35 @@ class App extends Component {
     });
   }
 
-  handleChange = name => event => {
+  handleSearchChange = event => {
     this.setState({
-      [name]: event.target.value,
+      searchQuery: event.target.value,
+      paginationIndex: 0,
     });
   }
 
+  loadNextPage = () => {
+    const { paginationIndex } = this.state;
+    this.setState({ paginationIndex: paginationIndex + this.pageSize });
+  }
+  loadPreviousPage = () => {
+    const { paginationIndex } = this.state;
+    this.setState({ paginationIndex: paginationIndex - this.pageSize });
+  }
+
   render() {
-    let { musicEvents, searchQuery } = this.state;
-    musicEvents = musicEvents.filter(event => event['ON SALE'].toLowerCase().includes(searchQuery.toLowerCase()));
+    const {
+      musicEvents,
+      searchQuery,
+      paginationIndex
+    } = this.state;
+    let filteredMusicEvents = [...musicEvents];
+    filteredMusicEvents = filteredMusicEvents.filter(event => event['ON SALE'].toLowerCase().includes(searchQuery.toLowerCase()));
+    filteredMusicEvents = filteredMusicEvents.slice(paginationIndex, paginationIndex + this.pageSize);
 
     return (
       <div className="App">
+
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Typography component="h2" variant="h1" gutterBottom className="main-title">
@@ -52,17 +71,19 @@ class App extends Component {
             label="Search"
             className="search-bar"
             value={this.state.searchQuery}
-            onChange={this.handleChange('searchQuery')}
+            onChange={this.handleSearchChange}
             margin="normal"
           />
-          {musicEvents.map(musicEvent => (
+          {filteredMusicEvents.map(musicEvent => (
             <EventListItem musicEvent={musicEvent} key={musicEvent.id} />
           ))}
         </Grid>
+
         <Grid item xs={12} className="pagination-button-container">
-          <Button>Previous <PreviousIcon /></Button>
-          <Button>Next <NextIcon /></Button>
+          {paginationIndex > 0 && <Button onClick={this.loadPreviousPage}>Previous <PreviousIcon /></Button>}
+          {musicEvents.length > (paginationIndex + this.pageSize) && <Button onClick={this.loadNextPage}>Next <NextIcon /></Button>}
         </Grid>
+
       </div>
     );
   }
