@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import {
+  Button,
   Grid,
+  TextField,
   Typography,
-  TextField
 } from '@material-ui/core';
 import moment from 'moment';
 import axios from 'axios';
 import './App.css';
+import NextIcon from '../NextIcon';
+import PreviousIcon from '../PreviousIcon';
 
 class App extends Component {
   state = {
@@ -70,6 +73,8 @@ class App extends Component {
             </Grid>
           ))}
         </Grid>
+        <Button>Previous <PreviousIcon /></Button>
+        <Button>Next <NextIcon /></Button>
         <button onClick={this.getMusicEvents}>Refresh</button>
       </div>
     );
