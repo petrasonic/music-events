@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import './App.css';
+import { Grid, Typography } from '@material-ui/core';
+import moment from 'moment';
 import axios from 'axios';
+import './App.css';
 
 class App extends Component {
   state = {
@@ -26,11 +27,29 @@ class App extends Component {
 
     return (
       <div className="App">
-        <ul>
-        {musicEvents.map(musicEvent => (
-          <li className="event" key={musicEvent.id}>{musicEvent['ON SALE']}</li>
-        ))}
-        </ul>
+        <Grid container spacing={24}>
+          <Grid item xs={12}>
+            <Typography component="h2" variant="h1" gutterBottom className="main-title">
+              Upcoming Events
+            </Typography>
+          </Grid>
+          {musicEvents.map(musicEvent => (
+            <Grid container item xs={12} spacing={24} key={musicEvent.id} className="event-wrapper">
+              <Grid item md={2} xs={3} className="date">
+                <div className="month">{moment(musicEvent.DATE).format('MMM')}</div>
+                <div className="day">{moment(musicEvent.DATE).format('DD')}</div>
+              </Grid>
+              <Grid item md={10} xs={9} key={musicEvent.id}>
+                <Typography variant="h2" gutterBottom>
+                  {musicEvent.ARTIST}
+                </Typography>
+                <p className="time-details">{moment(`${musicEvent.DATE} ${musicEvent.TIME}`).format('ddd, MMM DD, h:mm a')}</p>
+                <p className="venue">{`Location: ${musicEvent.VENUE}`}</p>
+                <p className="price">{`${musicEvent.PRICE}`}</p>
+              </Grid>
+            </Grid>
+          ))}
+        </Grid>
         <button onClick={this.getMusicEvents}>Refresh</button>
       </div>
     );
